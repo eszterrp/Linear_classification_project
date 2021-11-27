@@ -7,4 +7,4 @@ Contents:
                   a. for different resampling strategies to handle class imbalance 
                   b. exploration of an extra classifier model: Decision Trees
                   c. exploration of ensemble techniques 
-3. linclass_my_functions.ipynb: It contains my functions, that I created to make my coding (life) easier. 
+3. linclass_my_functions.ipynb: It contains my functions, that I created to make my life easier. 
