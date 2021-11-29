@@ -5,6 +5,7 @@ Created on Sun Nov 28 18:31:30 2021
 
 @author: pazma
 """
+from sklearn.model_selection import RepeatedStratifiedKFold, GridSearchCV
 
 def finetune_model(X,y, model, class_weight, solvers, penalty, c_values):
     # define grid search

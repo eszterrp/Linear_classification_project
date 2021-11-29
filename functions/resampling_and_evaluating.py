@@ -6,16 +6,20 @@ Created on Sun Nov 28 18:30:56 2021
 @author: pazma
 """
 
+from numpy import mean
+from sklearn.metrics import roc_auc_score
+from imblearn.under_sampling import RandomUnderSampler
+from imblearn.over_sampling import RandomOverSampler
+from sklearn.linear_model import LogisticRegression
+from imblearn.over_sampling import SMOTE
+from imblearn.combine import SMOTETomek 
+
+
 def sampling_and_evaluate(X,y,sampling, sampling_strat): 
     RANDOM_STATE = 42
-    score=list()
     
-    from numpy import mean
-    from sklearn.metrics import roc_auc_score
-    from imblearn.under_sampling import RandomUnderSampler
-    from imblearn.over_sampling import RandomOverSampler
-    from sklearn.linear_model import LogisticRegression
-
+    
+    
     if sampling =="under":  
         
          # define undersampling strategy
@@ -67,7 +71,6 @@ def sampling_and_evaluate(X,y,sampling, sampling_strat):
 
         
         # evaluate model
-        from sklearn.metrics import roc_auc_score
         return roc_auc_score(y_true=y_t, y_score=y_hat_tomek[:,1])
         #print('AUC Score of UnderSampling using Tomek-links with', str(sampling_strat), 
          #     'sampling strategy: ', roc_auc_score(y_true=y_t, y_score=y_hat_tomek[:,1]))
@@ -92,17 +95,14 @@ def sampling_and_evaluate(X,y,sampling, sampling_strat):
         y_hat_over=lregr.predict_proba(X_over)
 
         
-        # evaluate model
-        from sklearn.metrics import roc_auc_score
+        # evaluate model        
         return roc_auc_score(y_true=y_over, y_score=y_hat_over[:,1])
         #print('AUC Score of OverSampling with', str(sampling_strat), 
         #      'sampling strategy: ', roc_auc_score(y_true=y_over, y_score=y_hat_over[:,1]))
         
     elif sampling=="smote":
         
-        # define oversampling strategy
-        from imblearn.over_sampling import SMOTE
-
+        # define oversampling strategy    
         smote = SMOTE(sampling_strategy=sampling_strat, random_state=RANDOM_STATE)
         X_sm, y_sm = smote.fit_resample(X, y)
         
@@ -121,13 +121,12 @@ def sampling_and_evaluate(X,y,sampling, sampling_strat):
 
         
         # evaluate model
-        from sklearn.metrics import roc_auc_score        
         return roc_auc_score(y_true=y_sm, y_score=y_hat_sm[:,1])
         #print('AUC Score of OverSampling using SMOTE with', str(sampling_strat), 
         #      'sampling strategy: ', roc_auc_score(y_true=y_sm, y_score=y_hat_sm[:,1]))
     elif sampling=="smotetomek": 
         
-        from imblearn.combine import SMOTETomek 
+        
         
         smotetomek = SMOTETomek(sampling_strategy=sampling_strat, random_state=RANDOM_STATE)
         X_smtl, y_smtl = smotetomek.fit_resample(X, y)
@@ -147,7 +146,6 @@ def sampling_and_evaluate(X,y,sampling, sampling_strat):
 
 
         # evaluate model
-        from sklearn.metrics import roc_auc_score
         return roc_auc_score(y_true=y_smtl, y_score=y_hat_smtl[:,1])
 
 

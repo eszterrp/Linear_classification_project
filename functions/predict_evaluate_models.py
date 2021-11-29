@@ -5,13 +5,22 @@ Created on Sun Nov 28 18:31:58 2021
 
 @author: pazma
 """
+import os
+os.chdir("/Users/pazma/Documents/BSE/cml/project-2_linear_classification/functions")
+
+from sklearn.linear_model import LogisticRegression
+from sklearn import metrics
+from sklearn.metrics import confusion_matrix, roc_curve, roc_auc_score
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+import reweighting_predicted_results
+
 
 def predict_and_evaluate_binary(X,y, model, crossval="Yes"):
     
-    from sklearn.linear_model import LogisticRegression
-    from sklearn import metrics
-    from sklearn.metrics import confusion_matrix
-    import pandas as pd
+    
     
     model.fit(X,y)
     y_hat=model.predict_proba(X)
@@ -19,7 +28,7 @@ def predict_and_evaluate_binary(X,y, model, crossval="Yes"):
     # reweighting 
     q1 = y.sum()/len(y)
     r1 = 0.5
-    y_hat_corr=reweight(y_hat[:,1], q1,r1)
+    y_hat_corr=reweighting_predicted_results.reweight(y_hat[:,1], q1,r1)
     
     
     ### Evaluate Model ###
@@ -32,7 +41,7 @@ def predict_and_evaluate_binary(X,y, model, crossval="Yes"):
     print (cm)
     
     # Plotting confusion matrix (custom help function)
-    df_cm = pd.DataFrame(cm, index = [i for i in class_labels],
+    df_cm = pd.DataFrame(cm, index = [i for i in class_labels],  # class labels are defined in the notebook
                   columns = [i for i in class_labels])
     sns.set(font_scale=1)
     sns.heatmap(df_cm, annot=True, fmt='g', cmap='Blues')
@@ -72,7 +81,7 @@ def predict_and_evaluate_binary(X,y, model, crossval="Yes"):
         df_cm2 = pd.DataFrame(cm2, index = [i for i in class_labels],
                       columns = [i for i in class_labels])
         sns.set(font_scale=1)
-        sns.heatmap(df_cm, annot=True, fmt='g', cmap='Blues')
+        sns.heatmap(df_cm2, annot=True, fmt='g', cmap='Blues')
         plt.xlabel("Predicted label")
         plt.ylabel("Real label")
         plt.show()

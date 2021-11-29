@@ -6,6 +6,9 @@ Created on Sun Nov 28 18:30:30 2021
 @author: pazma
 """
 
+import pandas as pd
+import numpy as np
+
 ## the correction factor: 
 def reweight(pi,q1,r1):
     r0 = 1-r1
