@@ -1,7 +1,9 @@
 # Extendend Project #2: Linear Classification
 ## Forest Cover Classification 
 
-My scripts for the 2nd Extended Project about Linear Classification for the Computational Machine Learning and Computing for DS courses. 
+This project was created for my Computational Machine Learning and Computing for Data Science courses within the framework of my Data Science for Decision Making Masters' program at the Barcelona School of Economics. 
+
+This repository contains my codes for our 2nd project for these courses. 
 
 Contents:
 1. **extended_classification_project_EP.ipynb**: It contains the script for the binary and multiclass classification problems.
